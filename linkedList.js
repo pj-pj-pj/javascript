@@ -1,3 +1,5 @@
+import { Node } from "./node.js";
+
 class LinkedList {
   constructor() {}
 
@@ -8,14 +10,14 @@ class LinkedList {
     if (this.head == null) {
         this.head = value;
     } else {
-        this.tail().nextNode = value;
+        this.tail().next = value;
     }
 
     this.size++;
   }
 
   prepend(value) {
-    value.nextNode = this.head;
+    value.next = this.head;
     this.head = value;
     this.size++;
   }
@@ -30,7 +32,7 @@ class LinkedList {
 
   tail() {
     let tmp = this.head;
-    while (tmp && tmp.nextNode != null) tmp = tmp.nextNode;
+    while (tmp && tmp.next != null) tmp = tmp.next;
     return tmp;
   }
 
@@ -40,7 +42,7 @@ class LinkedList {
     let i = 0;
     let tmp = this.head;
     while (i < index) {
-      tmp = tmp.nextNode;
+      tmp = tmp.next;
       i++;
     }
 
@@ -49,7 +51,7 @@ class LinkedList {
 
   pop = () => {
     if (this.size > 1) {
-      this.at(this.size - 2).nextNode = null;
+      this.at(this.size - 2).next = null;
     } else {
       this.head = null;
     }
@@ -62,7 +64,7 @@ class LinkedList {
     while (tmp) {
       if (tmp.value === value) return true;
       console.log(tmp.value)
-      tmp = tmp.nextNode;
+      tmp = tmp.next;
     }
 
     return false;
@@ -81,9 +83,9 @@ class LinkedList {
   toString() {
     let tmp = this.head;
     let stringNode = ``;
-    while (tmp.nextNode) {
+    while (tmp.next) {
       stringNode += `( ${tmp.value} ) -> `;
-      tmp = tmp.nextNode;
+      tmp = tmp.next;
     }
 
     stringNode += `( ${tmp.value} ) -> null`;
@@ -96,14 +98,29 @@ class LinkedList {
     if (index === 0) {
       this.prepend(value);
     } else {
-      value.nextNode = this.at(index);
-      this.at(index - 1).nextNode = value;
+      value.next = this.at(index);
+      this.at(index - 1).next = value;
     }
+
+    this.size++;
   }
 
   removeAt(index) {
-    if (index == 0) this.head = this.head.nextNode;
+    if (index == 0) this.head = this.head.next;
 
-    this.at(index - 1).nextNode = this.at(index).nextNode;
+    this.at(index - 1).next = this.at(index).next;
+    this.size--;
   }
 }
+
+const list = new LinkedList;
+const a = new Node('a');
+
+list.append(a);
+list.prepend(new Node('b'));
+list.append(new Node('c'));
+list.insertAt(new Node('d'), 1);
+list.removeAt(1);
+
+console.log(list.toString());
+console.log(list.size);
