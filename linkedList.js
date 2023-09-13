@@ -1,4 +1,4 @@
-import { Node } from "./node.js";
+import { createNode } from './node.js';
 
 class LinkedList {
   constructor() {}
@@ -8,9 +8,9 @@ class LinkedList {
 
   append(value) {
     if (this.head == null) {
-        this.head = value;
+      this.head = value;
     } else {
-        this.tail().next = value;
+      this.tail().next = value;
     }
 
     this.size++;
@@ -56,14 +56,13 @@ class LinkedList {
       this.head = null;
     }
 
-    this.size--;    
-  }
+    this.size--;
+  };
 
   contains(value) {
     let tmp = this.head;
     while (tmp) {
       if (tmp.value === value) return true;
-      console.log(tmp.value)
       tmp = tmp.next;
     }
 
@@ -113,13 +112,13 @@ class LinkedList {
   }
 }
 
-const list = new LinkedList;
-const a = new Node('a');
+const list = new LinkedList();
+const a = createNode('a');
 
 list.append(a);
-list.prepend(new Node('b'));
-list.append(new Node('c'));
-list.insertAt(new Node('d'), 1);
+list.prepend(createNode('b'));
+list.append(createNode('c'));
+list.insertAt(createNode('d'), 1);
 list.removeAt(1);
 
 console.log(list.toString());

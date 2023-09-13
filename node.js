@@ -1,6 +1,5 @@
-export class Node {
-  constructor(value = null) {
-      this.value   = value;
-      this.next = null;
-  }
-}
+export const createNode = (value) => {
+  return {
+    value: value,
+  };
+};
