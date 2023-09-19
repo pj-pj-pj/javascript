@@ -23,24 +23,19 @@ class Tree {
     return topNode;
   }
 
-  insert(data) {
-    let current = this.root;
-
-    if (current === null) current = createNode(data);
-
-    while (current.value != data) {
-      if (data < current.value) {
-        if (current.left === null) current.left = createNode(data);
-        current = current.left;
-      } 
-
-      if (data > current.value) {
-        if (current.right === null) current.right = createNode(data);
-        current = current.right;
-      }
+  insert(data, current = this.root) {
+    if (current === null) {
+      current = createNode(data);
+      return current;
     }
 
-    return;
+    if (data < current.value) {
+      current.left = this.insert(data, current.left);
+    } else if (data > current.value) {
+      current.right = this.insert(data, current.right);
+    }
+    
+    return current;
   }
 
   delete(node, current = this.root) {
