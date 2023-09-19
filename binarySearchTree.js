@@ -40,7 +40,6 @@ class Tree {
           current.left = newNode;
           return;
         }
-        console.log('hi')
         current = current.left;
       } else {
         if (newNode.value > current.value) {
@@ -48,11 +47,14 @@ class Tree {
             current.right = newNode;
             return;
           }
-          console.log('hello')
           current = current.right;
         }
       }
     }
+  }
+
+  delete() {
+
   }
 
   prettyPrint(node = this.root, prefix = '', isLeft = true) {
@@ -75,4 +77,5 @@ let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 const newTree = new Tree(arr);
 newTree.insert(2);
+newTree.insert(4);
 newTree.prettyPrint();
