@@ -68,6 +68,16 @@ class Tree {
     return smallest.value;
   }
 
+  find(value, current = this.root) {
+    if (current === null || current.value === value) return current;
+
+    if (value < current.value) {
+      return this.find(value, current.left);
+    } else if (value > current.value) {
+      return this.find(value, current.right);
+    }
+  }
+
   prettyPrint(node = this.root, prefix = '', isLeft = true) {
     if (node === null) {
       return;
@@ -91,3 +101,5 @@ newTree.insert(2);
 newTree.insert(4);
 newTree.delete(8);
 newTree.prettyPrint();
+
+console.log(newTree.find(324));
