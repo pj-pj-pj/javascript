@@ -23,38 +23,24 @@ class Tree {
     return topNode;
   }
 
-  insert(newNode) {
-    newNode = createNode(newNode);
-    if (this.root === null) {
-      this.root = newNode;
-      return;
-    }
-
+  insert(data) {
     let current = this.root;
-    while (current) {
-      if (newNode.value === current.value) return;
 
-      if (newNode.value < current.value) {
-        if (current.left === null) {
+    if (current === null) current = createNode(data);
 
-          current.left = newNode;
-          return;
-        }
+    while (current.value != data) {
+      if (data < current.value) {
+        if (current.left === null) current.left = createNode(data);
         current = current.left;
-      } else {
-        if (newNode.value > current.value) {
-          if (current.right === null) {
-            current.right = newNode;
-            return;
-          }
-          current = current.right;
-        }
+      } 
+
+      if (data > current.value) {
+        if (current.right === null) current.right = createNode(data);
+        current = current.right;
       }
     }
-  }
 
-  delete() {
-
+    return;
   }
 
   prettyPrint(node = this.root, prefix = '', isLeft = true) {
