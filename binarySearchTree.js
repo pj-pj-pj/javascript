@@ -24,10 +24,7 @@ class Tree {
   }
 
   insert(data, current = this.root) {
-    if (current === null) {
-      current = createNode(data);
-      return current;
-    }
+    if (current === null) return createNode(data);
 
     if (data < current.value) {
       current.left = this.insert(data, current.left);
@@ -58,17 +55,17 @@ class Tree {
       //case 3: current has both children
       if (current.left && current.right) {
         current.value = this.findSmallestInRight(current.right);
-        current.right = this.delete(current.right.value, current.right);
+        current.right = this.delete(current.value, current.right);
       }
     }
     return current;
   }
 
   findSmallestInRight(node) {
-    let smallest = node.value;
-    while (smallest.left) smallest = smallest.left.value;
+    let smallest = node;
+    while (smallest.left) smallest = smallest.left;
 
-    return smallest;
+    return smallest.value;
   }
 
   prettyPrint(node = this.root, prefix = '', isLeft = true) {
