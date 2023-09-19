@@ -1,4 +1,9 @@
-import { createNode } from './node.js';
+const createNode = (value) => {
+  return {
+    value: value,
+    next: null,
+  };
+}
 
 class LinkedList {
   constructor() {}
