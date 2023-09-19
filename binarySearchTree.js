@@ -43,6 +43,39 @@ class Tree {
     return;
   }
 
+  delete(node, current = this.root) {
+    if (!current) return current;
+
+    //traverse the tree
+    if (node < current.value) {
+      current.left = this.delete(node, current.left);
+    } else if (node > current.value) {
+      current.right = this.delete(node, current.right);
+    } else { //current found the node to be deleted
+
+      //case 1 / 2: current has one or no children
+      if (!current.left) {
+        return current.right;
+      } else if (!current.right) {
+        return current.left;
+      }
+
+      //case 3: current has both children
+      if (current.left && current.right) {
+        current.value = this.findSmallestInRight(current.right);
+        current.right = this.delete(current.right.value, current.right);
+      }
+    }
+    return current;
+  }
+
+  findSmallestInRight(node) {
+    let smallest = node.value;
+    while (smallest.left) smallest = smallest.left.value;
+
+    return smallest;
+  }
+
   prettyPrint(node = this.root, prefix = '', isLeft = true) {
     if (node === null) {
       return;
@@ -64,4 +97,5 @@ let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const newTree = new Tree(arr);
 newTree.insert(2);
 newTree.insert(4);
+newTree.delete(8);
 newTree.prettyPrint();
