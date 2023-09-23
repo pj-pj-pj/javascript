@@ -78,6 +78,52 @@ class Tree {
     }
   }
 
+  levelOrder(array = [], current = this.root, queue = []) {
+    if (current == null) return;
+    queue.push(current);
+
+    while (queue.length > 0) {
+      if (current.left) queue.push(current.left);
+      if (current.right) queue.push(current.right);
+
+      array.push(queue[0].value);
+      queue.shift();
+      current = queue[0];
+    }
+
+    return array;
+  }
+
+  preorder(array = [], current = this.root) {
+    if (current == null) return;
+
+    array.push(current.value);
+    if (current.left) this.preorder(current.left, array);
+    if (current.right) this.preorder(current.right, array);
+
+    return array;
+  }
+
+  inorder(array = [], current = this.root) {
+    if (current == null) return;
+
+    if (current.left) this.inorder(current.left, array);
+    array.push(current.value);
+    if (current.right) this.inorder(current.right, array);
+
+    return array;
+  }
+
+  postorder(array = [], current = this.root) {
+    if (current == null) return;
+
+    if (current.left) this.postorder(current.left, array);
+    if (current.right) this.postorder(current.right, array);
+    array.push(current.value);
+
+    return array;
+  }
+
   prettyPrint(node = this.root, prefix = '', isLeft = true) {
     if (node === null) {
       return;
@@ -103,3 +149,7 @@ newTree.delete(8);
 newTree.prettyPrint();
 
 console.log(newTree.find(324));
+console.log(newTree.levelOrder());
+console.log(newTree.inorder());
+console.log(newTree.preorder());
+console.log(newTree.postorder());
