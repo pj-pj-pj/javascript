@@ -124,6 +124,21 @@ class Tree {
     return array;
   }
 
+  height(current = this.root, count = 0) {
+    if (current == null) return 0;
+
+    // add count when traversing the tree
+    count++;
+
+    let left = this.height(current.left, count);
+    let right = this.height(current.right, count);
+
+    // return which has the higher value,
+    // this also assigns it to left or right variable
+    // to retain the value of count at its highest
+    return Math.max(count, left, right);
+  }
+
   prettyPrint(node = this.root, prefix = '', isLeft = true) {
     if (node === null) {
       return;
@@ -153,3 +168,4 @@ console.log(newTree.levelOrder());
 console.log(newTree.inorder());
 console.log(newTree.preorder());
 console.log(newTree.postorder());
+console.log(newTree.height());
