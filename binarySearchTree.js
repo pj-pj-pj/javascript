@@ -98,8 +98,8 @@ class Tree {
     if (current == null) return;
 
     array.push(current.value);
-    if (current.left) this.preorder(current.left, array);
-    if (current.right) this.preorder(current.right, array);
+    if (current.left) this.preorder(array, current.left);
+    if (current.right) this.preorder(array, current.right);
 
     return array;
   }
@@ -107,9 +107,9 @@ class Tree {
   inorder(array = [], current = this.root) {
     if (current == null) return;
 
-    if (current.left) this.inorder(current.left, array);
+    if (current.left) this.inorder(array, current.left);
     array.push(current.value);
-    if (current.right) this.inorder(current.right, array);
+    if (current.right) this.inorder(array, current.right);
 
     return array;
   }
@@ -117,8 +117,8 @@ class Tree {
   postorder(array = [], current = this.root) {
     if (current == null) return;
 
-    if (current.left) this.postorder(current.left, array);
-    if (current.right) this.postorder(current.right, array);
+    if (current.left) this.postorder(array, current.left);
+    if (current.right) this.postorder(array, current.right);
     array.push(current.value);
 
     return array;
