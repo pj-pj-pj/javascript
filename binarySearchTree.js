@@ -139,6 +139,22 @@ class Tree {
     return Math.max(count, left, right);
   }
 
+  depth(value, current = this.root, count = -1) {
+    if (current == null) return 0;
+
+    count++;
+    let left = this.depth(value, current.left, count);
+    let right = this.depth(value, current.right, count);
+    
+    if (current.value == value) {
+      return count;
+    } else {
+      count = 0;
+    }
+
+    return Math.max(count, left, right);
+  }
+
   prettyPrint(node = this.root, prefix = '', isLeft = true) {
     if (node === null) {
       return;
@@ -169,3 +185,4 @@ console.log(newTree.inorder());
 console.log(newTree.preorder());
 console.log(newTree.postorder());
 console.log(newTree.height());
+console.log(newTree.depth(5));
