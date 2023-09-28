@@ -9,16 +9,16 @@ const createNode = (value) => {
 class Tree {
   constructor(array) {
     this.array = [...new Set(array.sort((a, b) => a - b))];
-    this.root = this.buildtree(0, this.array.length - 1);
+    this.root = this.buildtree(0, this.array.length - 1, this.array);
   }
 
-  buildtree(start, end) {
+  buildtree(start, end, array) {
     if (start > end) return null;
     const mid = Math.floor((start + end) / 2);
-    const topNode = createNode(this.array[mid]);
+    const topNode = createNode(array[mid]);
 
-    topNode.left = this.buildtree(start, mid - 1);
-    topNode.right = this.buildtree(mid + 1, end);
+    topNode.left = this.buildtree(start, mid - 1, array);
+    topNode.right = this.buildtree(mid + 1, end, array);
 
     return topNode;
   }
@@ -155,6 +155,29 @@ class Tree {
     return Math.max(count, left, right);
   }
 
+  isBalanced(leftCount = 0, rightCount = 0, current = this.root) {
+    if (current == null) return true;
+
+    if (current.left) {
+      current = current.left;
+      leftCount = this.height(current.left) - this.height(current.right);
+    }
+    
+    if (current.right) {
+      current = current.left;
+      leftCount = this.height(current.left) - this.height(current.right);
+    }
+
+    if (Math.abs(leftCount - rightCount) <= 1) return true;
+    return false;
+  }
+
+  rebalance() {
+    let balancedArr = [];
+    this.inorder(balancedArr);
+    this.root = this.buildtree(0, balancedArr.length - 1, balancedArr);
+  }
+
   prettyPrint(node = this.root, prefix = '', isLeft = true) {
     if (node === null) {
       return;
@@ -186,3 +209,9 @@ console.log(newTree.preorder());
 console.log(newTree.postorder());
 console.log(newTree.height());
 console.log(newTree.depth(5));
+console.log(newTree.isBalanced());
+
+newTree.rebalance();
+newTree.prettyPrint();
+console.log(newTree.isBalanced());
+
