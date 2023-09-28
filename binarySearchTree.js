@@ -36,7 +36,7 @@ class Tree {
   }
 
   delete(node, current = this.root) {
-    if (!current) return current;
+    if (current === null) return null;
 
     //traverse the tree
     if (node < current.value) {
@@ -95,7 +95,7 @@ class Tree {
   }
 
   preorder(array = [], current = this.root) {
-    if (current == null) return;
+    if (current === null) return;
 
     array.push(current.value);
     if (current.left) this.preorder(array, current.left);
@@ -105,7 +105,7 @@ class Tree {
   }
 
   inorder(array = [], current = this.root) {
-    if (current == null) return;
+    if (current === null) return;
 
     if (current.left) this.inorder(array, current.left);
     array.push(current.value);
@@ -115,7 +115,7 @@ class Tree {
   }
 
   postorder(array = [], current = this.root) {
-    if (current == null) return;
+    if (current === null) return;
 
     if (current.left) this.postorder(array, current.left);
     if (current.right) this.postorder(array, current.right);
@@ -125,7 +125,7 @@ class Tree {
   }
 
   height(current = this.root, count = 0) {
-    if (current == null) return 0;
+    if (current === null) return 0;
 
     // add count when traversing the tree
     count++;
@@ -140,7 +140,7 @@ class Tree {
   }
 
   depth(value, current = this.root, count = -1) {
-    if (current == null) return 0;
+    if (current === null) return 0;
 
     count++;
     let left = this.depth(value, current.left, count);
@@ -155,27 +155,28 @@ class Tree {
     return Math.max(count, left, right);
   }
 
-  isBalanced(leftCount = 0, rightCount = 0, current = this.root) {
-    if (current == null) return true;
+  isBalanced(current = this.root) {
+    if (current === null) return true;
 
-    if (current.left) {
-      current = current.left;
-      leftCount = this.height(current.left) - this.height(current.right);
-    }
+    const leftCount = this.height(current.left);
+    const rightCount = this.height(current.right);
     
-    if (current.right) {
-      current = current.left;
-      leftCount = this.height(current.left) - this.height(current.right);
+    if (Math.abs(leftCount - rightCount) <= 1 && 
+    this.isBalanced(current.left) && 
+    this.isBalanced(current.right)) {
+      return true;
     }
-
-    if (Math.abs(leftCount - rightCount) <= 1) return true;
     return false;
   }
 
   rebalance() {
-    let balancedArr = [];
-    this.inorder(balancedArr);
-    this.root = this.buildtree(0, balancedArr.length - 1, balancedArr);
+    if (!this.isBalanced()) {
+      let balancedArr = [];
+      this.inorder(balancedArr);
+      this.root = this.buildtree(0, balancedArr.length - 1, balancedArr);
+    }
+
+    return;
   }
 
   prettyPrint(node = this.root, prefix = '', isLeft = true) {
@@ -197,6 +198,7 @@ class Tree {
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 const newTree = new Tree(arr);
+newTree.prettyPrint();
 newTree.insert(2);
 newTree.insert(4);
 newTree.delete(8);
@@ -214,4 +216,3 @@ console.log(newTree.isBalanced());
 newTree.rebalance();
 newTree.prettyPrint();
 console.log(newTree.isBalanced());
-
