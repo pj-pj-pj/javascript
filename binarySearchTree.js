@@ -193,26 +193,32 @@ class Tree {
   };
 };
 
+function generateArray(array = []) {
+  for (let i = 0; i < 16; i++) {
+    array[i] = Math.floor(Math.random() * 100);
+  }
 
-  
-let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+  return array;
+}
 
-const newTree = new Tree(arr);
-newTree.prettyPrint();
-newTree.insert(2);
-newTree.insert(4);
-newTree.delete(8);
-newTree.prettyPrint();
 
-console.log(newTree.find(324));
-console.log(newTree.levelOrder());
-console.log(newTree.inorder());
-console.log(newTree.preorder());
-console.log(newTree.postorder());
-console.log(newTree.height());
-console.log(newTree.depth(5));
-console.log(newTree.isBalanced());
-
-newTree.rebalance();
-newTree.prettyPrint();
-console.log(newTree.isBalanced());
+let tree = new Tree(generateArray());
+tree.prettyPrint();
+console.log(`Height: ${tree.height()}`);
+console.log(`Balanced: ${tree.isBalanced()}`);
+console.log(`Level order: [${tree.levelOrder()}]`);
+console.log(`Preorder: [${tree.preorder()}]`);
+console.log(`Inorder: [${tree.inorder()}`);
+console.log(`Postorder: [${tree.postorder()}]`);
+tree.insert(1000);
+tree.insert(123);
+tree.prettyPrint();
+console.log(`Balanced: ${tree.isBalanced()}`);
+tree.delete(0);
+tree.rebalance();
+tree.prettyPrint();
+console.log(`Balanced: ${tree.isBalanced()}`);
+console.log(`Level order: [${tree.levelOrder()}]`);
+console.log(`Preorder: [${tree.preorder()}]`);
+console.log(`Inorder: [${tree.inorder()}`);
+console.log(`Postorder: [${tree.postorder()}]`);
